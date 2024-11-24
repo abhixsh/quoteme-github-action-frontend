@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { gsap } from 'gsap'; // Correct import statement for GSAP
+import { gsap } from 'gsap'; 
 
 const QuotePage = () => {
   const [savedQuotes, setSavedQuotes] = useState([]);
@@ -8,7 +8,7 @@ const QuotePage = () => {
   const [error, setError] = useState('');
 
   const quotesListRef = React.useRef(null);
-  const titleRef = React.useRef(null);  // Create a ref for the title
+  const titleRef = React.useRef(null);  
 
   // Fetch saved quotes from the backend
   const fetchSavedQuotes = async () => {
@@ -41,7 +41,7 @@ const QuotePage = () => {
   // GSAP animation for the flowing gradient text effect on title
   useEffect(() => {
     gsap.to(titleRef.current, {
-      backgroundPosition: '200% 0%',  // Set a higher end position to create a flowing effect
+      backgroundPosition: '200% 50%',  
       duration: 5,  // Duration of the flow (can be adjusted)
       ease: 'linear',  // Linear movement for a continuous flow
       repeat: -1,  // Repeat infinitely to keep it flowing

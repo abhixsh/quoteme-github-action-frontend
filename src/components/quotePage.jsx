@@ -8,6 +8,7 @@ const QuotePage = () => {
   const [error, setError] = useState('');
 
   const quotesListRef = React.useRef(null);
+  const titleRef = React.useRef(null);  // Create a ref for the title
 
   // Fetch saved quotes from the backend
   const fetchSavedQuotes = async () => {
@@ -37,6 +38,17 @@ const QuotePage = () => {
     }
   }, [savedQuotes]);
 
+  // GSAP animation for the flowing gradient text effect on title
+  useEffect(() => {
+    gsap.to(titleRef.current, {
+      backgroundPosition: '200% 0%',  // Set a higher end position to create a flowing effect
+      duration: 5,  // Duration of the flow (can be adjusted)
+      ease: 'linear',  // Linear movement for a continuous flow
+      repeat: -1,  // Repeat infinitely to keep it flowing
+      backgroundImage: 'linear-gradient(45deg, #ff6ec7, #f7bb97, #1f90e6, #02aab0)',
+      backgroundSize: '400% 400%',  // Stretch the gradient to allow for smooth flow
+    });
+  }, []);
 
   useEffect(() => {
     fetchSavedQuotes();
@@ -44,8 +56,11 @@ const QuotePage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-800 via-gray-900 to-black text-white flex flex-col items-center p-6">
-
-      <h1 className="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-green-400">
+      
+      <h1
+        ref={titleRef} // Apply the ref to the title element
+        className="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text"
+      >
         Your Saved Quotes
       </h1>
 
@@ -73,7 +88,6 @@ const QuotePage = () => {
           ))}
         </ul>
       )}
-
 
       <Link
         to="/"

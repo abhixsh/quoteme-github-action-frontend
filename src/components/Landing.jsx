@@ -6,6 +6,7 @@ const LandingPage = () => {
     const [quote, setQuote] = useState('');
     const [saved, setSaved] = useState(false);
     const quoteRef = useRef(null);
+    const buttonRef = useRef(null);
 
     // GSAP animation for quote display
     useEffect(() => {
@@ -17,6 +18,17 @@ const LandingPage = () => {
             );
         }
     }, [quote]);
+
+    // GSAP animation for button hover
+    useEffect(() => {
+        if (buttonRef.current) {
+            gsap.fromTo(
+                buttonRef.current,
+                { scale: 1 },
+                { scale: 1.05, duration: 0.5, repeat: -1, yoyo: true, ease: 'power1.inOut' }
+            );
+        }
+    }, []);
 
     // Fetch random quote from backend API
     const fetchQuote = async () => {
@@ -53,8 +65,8 @@ const LandingPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-6">
-            <div className="text-center space-y-4">
+        <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black text-white flex flex-col items-center justify-center p-6">
+            <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-xl p-8 text-center shadow-lg space-y-6 max-w-lg mx-auto">
                 {/* Header */}
                 <h1 className="text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-green-400 animate-pulse">
                     Motivational Quote Generator
@@ -63,17 +75,19 @@ const LandingPage = () => {
                 {/* Quote Display */}
                 <p
                     ref={quoteRef}
-                    className={`text-xl italic transition duration-500 ${quote ? 'opacity-100' : 'opacity-50'
-                        }`}
+                    className={`text-xl italic font-light transition-opacity duration-500 ${
+                        quote ? 'opacity-100' : 'opacity-50'
+                    }`}
                 >
                     {quote || 'Click below to get a motivational quote!'}
                 </p>
 
                 {/* Buttons */}
-                <div className="space-y-4">
+                <div className="flex flex-col space-y-4">
                     {/* Get Quote Button */}
                     <button
-                        className="bg-gradient-to-r from-blue-600 to-blue-400 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300"
+                        ref={buttonRef}
+                        className="bg-gradient-to-r from-blue-600 to-blue-400 text-white font-semibold py-3 px-8 rounded-full shadow-md hover:shadow-xl hover:scale-105 transition-transform duration-300 focus:outline-none"
                         onClick={fetchQuote}
                     >
                         Get Quote
@@ -81,10 +95,13 @@ const LandingPage = () => {
 
                     {/* Save Quote Button */}
                     <button
-                        className={`${saved ? 'bg-green-700' : 'bg-gradient-to-r from-green-500 to-green-400'
-                            } text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300`}
+                        className={`${
+                            saved
+                                ? 'bg-green-700 cursor-not-allowed'
+                                : 'bg-gradient-to-r from-green-500 to-green-400'
+                        } text-white font-semibold py-3 px-8 rounded-full shadow-md hover:shadow-xl hover:scale-105 transition-transform duration-300 focus:outline-none`}
                         onClick={saveQuote}
-                        disabled={!quote || saved} // Disable if no quote or already saved
+                        disabled={!quote || saved}
                     >
                         {saved ? 'Saved!' : 'Save Quote'}
                     </button>
@@ -93,7 +110,7 @@ const LandingPage = () => {
                 {/* Link to view saved quotes */}
                 <Link
                     to="/quote"
-                    className="mt-4 inline-block text-blue-300 hover:text-blue-500 underline text-sm tracking-wide transition-all duration-200"
+                    className="mt-4 text-blue-300 hover:text-blue-500 underline text-sm tracking-wide transition-all duration-200"
                 >
                     View Saved Quotes
                 </Link>

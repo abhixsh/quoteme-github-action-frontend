@@ -65,17 +65,17 @@ const LandingPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black text-white flex flex-col items-center justify-center p-6">
+        <div className="min-h-screen bg-gradient-to-b from-gray-800 via-gray-900 to-black text-white flex flex-col items-center justify-center p-6">
             <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-xl p-8 text-center shadow-lg space-y-6 max-w-lg mx-auto">
                 {/* Header */}
-                <h1 className="text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-green-400 animate-pulse">
+                <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-green-400 animate-pulse">
                     Motivational Quote Generator
                 </h1>
 
                 {/* Quote Display */}
                 <p
                     ref={quoteRef}
-                    className={`text-xl italic font-light transition-opacity duration-500 ${
+                    className={`text-2xl italic font-medium leading-relaxed text-gray-300 transition-opacity duration-500 ${
                         quote ? 'opacity-100' : 'opacity-50'
                     }`}
                 >
@@ -110,7 +110,7 @@ const LandingPage = () => {
                 {/* Link to view saved quotes */}
                 <Link
                     to="/quote"
-                    className="mt-4 text-blue-300 hover:text-blue-500 underline text-sm tracking-wide transition-all duration-200"
+                    className="mt-4 inline-block bg-gradient-to-r from-purple-600 to-purple-400 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300 focus:outline-none"
                 >
                     View Saved Quotes
                 </Link>

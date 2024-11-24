@@ -46,13 +46,6 @@ To get started with the project locally:
 
 Visit [http://localhost:3000](http://localhost:3000) in your browser to see the app in action.
 
-## GitHub Actions Workflows
-
-This project uses GitHub Actions to automate several processes:
-
-- **CI Workflow**: Run tests and lint the code automatically whenever changes are pushed to the repository.
-- **CD Workflow**: Deploy the frontend to GitHub Pages or any other hosting platform when changes are merged into the main branch.
-
 ## Workflow Configuration
 
 You can find the GitHub Actions configuration file in the `.github/workflows` directory. The actions are triggered for each push to the main branch and will run automated tests, lint the code, and deploy the app.

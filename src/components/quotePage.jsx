@@ -43,7 +43,7 @@ const QuotePage = () => {
     gsap.to(titleRef.current, {
       backgroundPosition: '200% 50%',  
       duration: 5,  // Duration of the flow (can be adjusted)
-      ease: 'linear',  // Linear movement for a continuous flow
+      ease: 'sine.inOut',  // Linear movement for a continuous flow
       repeat: -1,  // Repeat infinitely to keep it flowing
       backgroundImage: 'linear-gradient(45deg, #ff6ec7, #f7bb97, #1f90e6, #02aab0)',
       backgroundSize: '400% 400%',  // Stretch the gradient to allow for smooth flow

@@ -37,14 +37,14 @@ const QuotePage = () => {
     }
   }, [savedQuotes]);
 
-  // Run fetchSavedQuotes when the component mounts
+
   useEffect(() => {
     fetchSavedQuotes();
   }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-800 via-gray-900 to-black text-white flex flex-col items-center p-6">
-      {/* Header without GSAP animation */}
+
       <h1 className="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-green-400">
         Your Saved Quotes
       </h1>
@@ -74,7 +74,7 @@ const QuotePage = () => {
         </ul>
       )}
 
-      {/* Back to Home link without GSAP animation */}
+
       <Link
         to="/"
         className="mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg"

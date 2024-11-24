@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { gsap } from 'gsap'; 
+import { gsap } from 'gsap';
 
 const QuotePage = () => {
   const [savedQuotes, setSavedQuotes] = useState([]);
@@ -8,7 +8,7 @@ const QuotePage = () => {
   const [error, setError] = useState('');
 
   const quotesListRef = React.useRef(null);
-  const titleRef = React.useRef(null);  
+  const titleRef = React.useRef(null);
 
   // Fetch saved quotes from the backend
   const fetchSavedQuotes = async () => {
@@ -27,6 +27,21 @@ const QuotePage = () => {
     }
   };
 
+  // Delete a quote
+  const handleDeleteQuote = async (quoteId) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/delete-favorite/${quoteId}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete quote');
+      }
+      setSavedQuotes((prevQuotes) => prevQuotes.filter((quote) => quote._id !== quoteId)); // Remove deleted quote from state
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   // GSAP animation for the saved quotes list
   useEffect(() => {
     if (savedQuotes.length > 0) {
@@ -41,7 +56,7 @@ const QuotePage = () => {
   // GSAP animation for the flowing gradient text effect on title
   useEffect(() => {
     gsap.to(titleRef.current, {
-      backgroundPosition: '200% 50%',  
+      backgroundPosition: '200% 50%',
       duration: 5,  // Duration of the flow (can be adjusted)
       ease: 'sine.inOut',  // Linear movement for a continuous flow
       repeat: -1,  // Repeat infinitely to keep it flowing
@@ -56,11 +71,7 @@ const QuotePage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-800 via-gray-900 to-black text-white flex flex-col items-center p-6">
-      
-      <h1
-        ref={titleRef} // Apply the ref to the title element
-        className="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text"
-      >
+      <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-green-400 animate-pulse p-7">
         Your Saved Quotes
       </h1>
 
@@ -79,11 +90,19 @@ const QuotePage = () => {
         <ul ref={quotesListRef} className="w-full max-w-3xl space-y-4">
           {savedQuotes.map((quote, index) => (
             <li
-              key={index}
-              className="bg-gray-800 p-4 rounded-lg shadow-md border border-gray-700 flex items-start"
+              key={quote._id} // Use the _id from the backend for the key
+              className="bg-gray-800 p-4 rounded-lg shadow-md border border-gray-700 flex items-start justify-between"
             >
-              <span className="font-bold text-blue-400 mr-4">{index + 1}.</span>
-              <p className="text-lg italic">"{quote}"</p>
+              <div>
+                <span className="font-bold text-blue-400 mr-4">{index + 1}.</span>
+                <p className="text-lg italic">"{quote.quote}"</p>
+              </div>
+              <button
+                onClick={() => handleDeleteQuote(quote._id)}
+                className="bg-red-500 hover:bg-red-700 text-white py-1 px-4 rounded ml-4"
+              >
+                Delete
+              </button>
             </li>
           ))}
         </ul>

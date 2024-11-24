@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
+import { FaTrashAlt } from 'react-icons/fa'; // Import trash icon
 
 const QuotePage = () => {
   const [savedQuotes, setSavedQuotes] = useState([]);
@@ -99,9 +100,9 @@ const QuotePage = () => {
               </div>
               <button
                 onClick={() => handleDeleteQuote(quote._id)}
-                className="bg-red-500 hover:bg-red-700 text-white py-1 px-4 rounded ml-4"
+                className="bg-red-500 hover:bg-red-700 text-white p-2 rounded-full ml-4 flex items-center justify-center"
               >
-                Delete
+                <FaTrashAlt className="text-lg" />
               </button>
             </li>
           ))}

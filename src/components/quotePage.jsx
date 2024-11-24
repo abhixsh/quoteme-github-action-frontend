@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { gsap } from 'gsap'; // Correct import statement for GSAP
 
 const QuotePage = () => {
   const [savedQuotes, setSavedQuotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+
+  const quotesListRef = React.useRef(null);
 
   // Fetch saved quotes from the backend
   const fetchSavedQuotes = async () => {
@@ -23,14 +26,29 @@ const QuotePage = () => {
     }
   };
 
+  // GSAP animation for the saved quotes list
+  useEffect(() => {
+    if (savedQuotes.length > 0) {
+      gsap.fromTo(
+        quotesListRef.current.children,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' }
+      );
+    }
+  }, [savedQuotes]);
+
   // Run fetchSavedQuotes when the component mounts
   useEffect(() => {
     fetchSavedQuotes();
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center p-6">
-      <h1 className="text-4xl font-extrabold mb-6 text-center">Your Saved Quotes</h1>
+    <div className="min-h-screen bg-gradient-to-b from-gray-800 via-gray-900 to-black text-white flex flex-col items-center p-6">
+      {/* Header without GSAP animation */}
+      <h1 className="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-green-400">
+        Your Saved Quotes
+      </h1>
+
       {loading ? (
         <div className="flex items-center justify-center">
           <p className="text-lg animate-pulse">Loading your quotes...</p>
@@ -43,7 +61,7 @@ const QuotePage = () => {
       ) : savedQuotes.length === 0 ? (
         <p className="text-lg italic text-center">You have no saved quotes yet. Start saving your favorites!</p>
       ) : (
-        <ul className="w-full max-w-3xl space-y-4">
+        <ul ref={quotesListRef} className="w-full max-w-3xl space-y-4">
           {savedQuotes.map((quote, index) => (
             <li
               key={index}
@@ -55,6 +73,8 @@ const QuotePage = () => {
           ))}
         </ul>
       )}
+
+      {/* Back to Home link without GSAP animation */}
       <Link
         to="/"
         className="mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg"

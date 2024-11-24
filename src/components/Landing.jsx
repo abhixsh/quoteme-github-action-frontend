@@ -75,9 +75,8 @@ const LandingPage = () => {
                 {/* Quote Display */}
                 <p
                     ref={quoteRef}
-                    className={`text-2xl italic font-medium leading-relaxed text-gray-300 transition-opacity duration-500 ${
-                        quote ? 'opacity-100' : 'opacity-50'
-                    }`}
+                    className={`text-2xl italic font-medium leading-relaxed text-gray-300 transition-opacity duration-500 ${quote ? 'opacity-100' : 'opacity-50'
+                        }`}
                 >
                     {quote || 'Click below to get a motivational quote!'}
                 </p>
@@ -95,11 +94,10 @@ const LandingPage = () => {
 
                     {/* Save Quote Button */}
                     <button
-                        className={`${
-                            saved
+                        className={`${saved
                                 ? 'bg-green-700 cursor-not-allowed'
                                 : 'bg-gradient-to-r from-green-500 to-green-400'
-                        } text-white font-semibold py-3 px-8 rounded-full shadow-md hover:shadow-xl hover:scale-105 transition-transform duration-300 focus:outline-none`}
+                            } text-white font-semibold py-3 px-8 rounded-full shadow-md hover:shadow-xl hover:scale-105 transition-transform duration-300 focus:outline-none`}
                         onClick={saveQuote}
                         disabled={!quote || saved}
                     >

@@ -15,6 +15,7 @@ This is the frontend for the motivational quote generator app built with **React
 - **Tailwind CSS**: For styling the components.
 - **GitHub Actions**: For automating workflows such as testing, linting, and deploying.
 - **Axios**: For making HTTP requests to the backend.
+- **gsap**: Used for animations.
 
 ## Setup and Installation
 

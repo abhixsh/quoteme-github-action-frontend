@@ -92,9 +92,9 @@ const QuotePage = () => {
           {savedQuotes.map((quote, index) => (
             <li
               key={quote._id} // Use the _id from the backend for the key
-              className="bg-gray-800 p-4 rounded-lg shadow-md border border-gray-700 flex items-start justify-between"
+              className="bg-gray-800 p-4 rounded-lg shadow-md border border-gray-700 flex items-center justify-between"
             >
-              <div>
+              <div className="flex items-center">
                 <span className="font-bold text-blue-400 mr-4">{index + 1}.</span>
                 <p className="text-lg italic">"{quote.quote}"</p>
               </div>
